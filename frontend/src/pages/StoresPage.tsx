@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { storesAPI, ratingsAPI } from '../services/api';
+import { storesAPI } from '../services/api';
 import toast from 'react-hot-toast';
 
 export default function StoresPage() {
