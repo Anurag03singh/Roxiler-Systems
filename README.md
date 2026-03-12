@@ -1,52 +1,27 @@
-# Rate My Store - Store Rating System
+# Store Rating App
 
-A complete fullstack web application for managing stores, users, and ratings with role-based access control.
+A web app for rating and managing stores with role-based access.
 
-## Tech Stack
+## Stack
 
-- **Backend**: NestJS (TypeScript)
-- **Database**: PostgreSQL
-- **Frontend**: React (TypeScript + Vite)
-- **Authentication**: JWT + bcrypt
-- **Styling**: Tailwind CSS + Headless UI
-- **ORM**: Prisma
+- Backend: NestJS + PostgreSQL + Prisma
+- Frontend: React + TypeScript + Tailwind CSS
+- Auth: JWT
 
-## Features
-
-### Normal User
-- Register and login
-- Browse and search stores
-- Rate stores (1-5 stars)
-- Edit existing ratings
-- Update password
-
-### System Administrator
-- Dashboard with statistics
-- Add/manage stores and users
-- Filter and sort all data
-- View detailed information
-
-### Store Owner
-- View average store rating
-- See all user ratings
-- Update password
-
-## Quick Start
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+
-- Docker & Docker Compose
-- PostgreSQL (or use Docker)
+- Docker (for PostgreSQL)
 
-### Installation
+### Setup
 
-1. Clone the repository
-2. Start PostgreSQL with Docker:
+1. Start the database:
 ```bash
 docker-compose up -d
 ```
 
-3. Setup Backend:
+2. Backend setup:
 ```bash
 cd backend
 npm install
@@ -56,7 +31,7 @@ npx prisma db seed
 npm run start:dev
 ```
 
-4. Setup Frontend:
+3. Frontend setup:
 ```bash
 cd frontend
 npm install
@@ -64,90 +39,19 @@ cp .env.example .env
 npm run dev
 ```
 
-## Default Credentials
+The app will be running at `http://localhost:5173`
 
-### Admin
-- Email: admin@modak-cafe.com
-- Password: Admin@123
+## Test Accounts
 
-### Store Owner
-- Email: owner@store1.com
-- Password: Owner@123
+Admin: `admin@modak-cafe.com` / `Admin@123`
+Store Owner: `owner@store1.com` / `Owner@123`
+User: `user@example.com` / `User@123`
 
-### Normal User
-- Email: user@example.com
-- Password: User@123
+## Features
 
-## API Documentation
-
-Base URL: `http://localhost:3000/api`
-
-### Authentication
-- POST `/auth/register` - Register new user
-- POST `/auth/login` - Login
-- POST `/auth/logout` - Logout
-- GET `/auth/refresh` - Refresh token
-
-### Stores
-- GET `/stores` - List all stores (with search, sort, pagination)
-- GET `/stores/:id` - Get store details
-- POST `/stores` - Create store (Admin only)
-- GET `/stores/:id/ratings` - Get store ratings
-
-### Ratings
-- POST `/ratings` - Create rating
-- PUT `/ratings/:id` - Update rating
-- GET `/ratings/my-ratings` - Get user's ratings
-
-### Users (Admin)
-- GET `/admin/users` - List users
-- POST `/admin/users` - Create user
-- GET `/admin/users/:id` - Get user details
-
-### Dashboard
-- GET `/dashboard/stats` - Get dashboard statistics
-
-## Project Structure
-
-```
-├── backend/
-│   ├── prisma/
-│   │   ├── schema.prisma
-│   │   └── seed.ts
-│   ├── src/
-│   │   ├── auth/
-│   │   ├── users/
-│   │   ├── stores/
-│   │   ├── ratings/
-│   │   ├── common/
-│   │   └── app.module.ts
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   ├── services/
-│   │   └── utils/
-│   └── package.json
-└── docker-compose.yml
-```
-
-## Environment Variables
-
-### Backend (.env)
-```
-DATABASE_URL="postgresql://postgres:password@localhost:5432/modak_cafe"
-JWT_SECRET="your-secret-key"
-JWT_EXPIRES_IN="7d"
-PORT=3000
-```
-
-### Frontend (.env)
-```
-VITE_API_URL=http://localhost:3000/api
-```
-
-## License
-
-MIT
+- User registration and authentication
+- Browse and search stores
+- Rate stores (1-5 stars)
+- Admin dashboard with stats
+- Store owner can view ratings
+- Role-based access control

@@ -10,14 +10,12 @@ const api = axios.create({
   },
 });
 
-// Auth API
 export const authAPI = {
   register: (data: any) => api.post('/auth/register', data),
   login: (data: any) => api.post('/auth/login', data),
   logout: () => api.post('/auth/logout'),
 };
 
-// Stores API
 export const storesAPI = {
   getAll: (search?: string) => api.get('/stores', { params: { search } }),
   getOne: (id: string) => api.get(`/stores/${id}`),
@@ -25,14 +23,12 @@ export const storesAPI = {
   getRatings: (id: string) => api.get(`/stores/${id}/ratings`),
 };
 
-// Ratings API
 export const ratingsAPI = {
   create: (data: any) => api.post('/ratings', data),
   update: (id: string, data: any) => api.put(`/ratings/${id}`, data),
   getMyRatings: () => api.get('/ratings/my-ratings'),
 };
 
-// Users API
 export const usersAPI = {
   getAll: (filters?: any) => api.get('/admin/users', { params: filters }),
   getOne: (id: string) => api.get(`/admin/users/${id}`),

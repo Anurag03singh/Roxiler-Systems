@@ -9,7 +9,6 @@ export class StoresService {
   constructor(private prisma: PrismaService) {}
 
   async create(createStoreDto: CreateStoreDto) {
-    // Check if email already exists
     const existingUser = await this.prisma.user.findUnique({
       where: { email: createStoreDto.email },
     });
@@ -18,7 +17,7 @@ export class StoresService {
       throw new ConflictException('Email already exists');
     }
 
-    // Create store owner user
+    // create owner account first
     const hashedPassword = await bcrypt.hash('Owner@123', 10);
     const owner = await this.prisma.user.create({
       data: {
@@ -30,7 +29,6 @@ export class StoresService {
       },
     });
 
-    // Create store
     const store = await this.prisma.store.create({
       data: {
         name: createStoreDto.name,
@@ -76,11 +74,15 @@ export class StoresService {
       },
     });
 
+    // calculate average ratings
     return stores.map(store => {
       const { ratings, ...storeData } = store;
-      const averageRating = ratings.length > 0
-        ? (ratings.reduce((acc, r) => acc + r.rating, 0) / ratings.length).toFixed(1)
-        : null;
+      let averageRating = null;
+      
+      if (ratings.length > 0) {
+        const sum = ratings.reduce((acc, r) => acc + r.rating, 0);
+        averageRating = (sum / ratings.length).toFixed(1);
+      }
       
       return {
         ...storeData,
